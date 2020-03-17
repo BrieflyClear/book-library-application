@@ -7,9 +7,17 @@ import lombok.Data;
 @AllArgsConstructor
 public class Book {
 
-  private String kind;
-  private String id;
-  private String etag;
-  private String selfLink;
-  private VolumeInfo volumeInfo;
+  private String isbn; // book's unique identifier
+  private String title;
+  private String subtitle;
+  private String publisher;
+  private long publishedDate; // UNIX timestamp
+  private String description;
+  private int pageCount;
+  private String thumbnailUrl;
+  private String language;
+  private String previewLink;
+  private double averageRating;
+  private String[] authors;
+  private String[] categories;
 }
