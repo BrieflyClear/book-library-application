@@ -1,8 +1,13 @@
-package com.aprzybysz.library.model;
+package com.aprzybysz.library.data.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
 public class VolumeInfo {
 
   private String title;

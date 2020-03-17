@@ -1,5 +1,10 @@
-package com.aprzybysz.library.model;
+package com.aprzybysz.library.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class Book {
 
   private String kind;

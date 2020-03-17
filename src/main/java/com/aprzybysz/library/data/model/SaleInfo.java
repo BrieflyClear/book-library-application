@@ -1,8 +1,12 @@
-package com.aprzybysz.library.model;
+package com.aprzybysz.library.data.model;
 
-import javax.security.auth.message.callback.PrivateKeyCallback;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.math.BigDecimal;
 
+@Data
+@AllArgsConstructor
 public class SaleInfo {
 
   private String country;
@@ -13,6 +17,8 @@ public class SaleInfo {
   private Price listPrice;
   private Price retailPrice;
 
+  @Data
+  @AllArgsConstructor
   private class Price {
     private BigDecimal amount;
     private String currencyCode;

@@ -1,4 +1,4 @@
-package com.aprzybysz.library.model;
+package com.aprzybysz.library.data.model;
 
 public enum PrintTypeEnum {
   BOOK,

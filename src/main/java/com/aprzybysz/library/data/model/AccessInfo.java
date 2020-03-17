@@ -1,5 +1,10 @@
-package com.aprzybysz.library.model;
+package com.aprzybysz.library.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class AccessInfo {
 
   private String country;
@@ -13,7 +18,8 @@ public class AccessInfo {
   private /*AccessViewStatusEnum*/ String accessViewStatus;
   private boolean quoteSharingAllowed;
 
-
+  @Data
+  @AllArgsConstructor
   private class Mode {
     private boolean isAvailable;
     private String acsTokenLink;
