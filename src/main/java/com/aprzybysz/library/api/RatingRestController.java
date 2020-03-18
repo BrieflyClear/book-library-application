@@ -1,8 +1,7 @@
 package com.aprzybysz.library.api;
 
-import com.aprzybysz.library.data.model.AuthorRating;
-import com.aprzybysz.library.data.model.Book;
-import com.aprzybysz.library.data.service.BookService;
+import com.aprzybysz.library.api.dto.AuthorRatingDTO;
+import com.aprzybysz.library.api.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +20,8 @@ public class RatingRestController {
   private BookService service;
 
   @GetMapping
-  public List<AuthorRating> get() {
-    List<AuthorRating> rating = service.getAuthorsRatings();
+  public List<AuthorRatingDTO> get() {
+    List<AuthorRatingDTO> rating = service.getAuthorsRatings();
     rating.sort(Collections.reverseOrder());
     return rating;
   }

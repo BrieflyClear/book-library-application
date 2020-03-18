@@ -1,7 +1,7 @@
 package com.aprzybysz.library.api;
 
 import com.aprzybysz.library.data.model.Book;
-import com.aprzybysz.library.data.service.BookService;
+import com.aprzybysz.library.api.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletionService;
 
 @RestController
 @RequestMapping("/api/books")

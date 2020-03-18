@@ -1,19 +1,17 @@
-package com.aprzybysz.library.data.model;
+package com.aprzybysz.library.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Collections;
-
 @Data
 @AllArgsConstructor
-public class AuthorRating implements Comparable<AuthorRating> {
+public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
 
   private String author;
   private double averageRating;
 
   @Override
-  public int compareTo(AuthorRating o) {
+  public int compareTo(AuthorRatingDTO o) {
     return averageRating > o.averageRating ? 1 : -1;
   }
 }

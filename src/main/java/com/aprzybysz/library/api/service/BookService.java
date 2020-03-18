@@ -1,6 +1,6 @@
-package com.aprzybysz.library.data.service;
+package com.aprzybysz.library.api.service;
 
-import com.aprzybysz.library.data.model.AuthorRating;
+import com.aprzybysz.library.api.dto.AuthorRatingDTO;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,6 @@ public class BookService {
     return Collections.emptyList();
   }
 
-  public List<Book> findByAuthor(String author) {
-    return Collections.emptyList();
-  }
-
   public List<Book> findByIsbn(String isbn) {
     return Collections.emptyList();
   }
@@ -28,12 +24,12 @@ public class BookService {
     return Collections.emptyList();
   }
 
-  public List<AuthorRating> getAuthorsRatings() {
+  public List<AuthorRatingDTO> getAuthorsRatings() {
     List<Book> books = findAll();
     Set<String> authors = new HashSet<>(Collections.emptySet());
     books.forEach(it -> authors.addAll(Arrays.asList(it.getAuthors())));
-    List<AuthorRating> ratings = new ArrayList<>(Collections.emptyList());
-    authors.forEach(it -> ratings.add(new AuthorRating(it, 0.0)));
+    List<AuthorRatingDTO> ratings = new ArrayList<>(Collections.emptyList());
+    authors.forEach(it -> ratings.add(new AuthorRatingDTO(it, 0.0)));
     ratings.forEach(it -> {
       var list = books.stream().filter(g -> Arrays.asList(g.getAuthors()).contains(it.getAuthor()))
           .collect(Collectors.toList());
