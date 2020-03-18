@@ -1,6 +1,7 @@
 package com.aprzybysz.library.api.service;
 
 import com.aprzybysz.library.api.dto.AuthorRatingDTO;
+import com.aprzybysz.library.data.JsonParser;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 public class BookService {
 
   public List<Book> findAll() {
-    return Collections.emptyList();
+    return JsonParser.getInstance().readFromFile("");
   }
 
   public List<Book> findByIsbn(String isbn) {

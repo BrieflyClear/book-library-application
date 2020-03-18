@@ -1,5 +1,6 @@
 package com.aprzybysz.library.data.model;
 
+import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Book {
   private String language;
   private String previewLink;
   private double averageRating;
+  private int ratingsCount;
   private String[] authors;
   private String[] categories;
 }
