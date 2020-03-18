@@ -34,9 +34,9 @@ public class JsonParser {
     return INSTANCE;
   }
 
-  public List<Book> readFromFile(String file) {
+  public List<Book> readFromFileAll(String file) {
     List<Book> books = new ArrayList<>();
-    try(Reader reader = new FileReader(System.getProperty("user.dir") + "/books.json")) {
+    try(Reader reader = new FileReader(file)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
 
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
