@@ -1,6 +1,5 @@
 package com.aprzybysz.library.data;
 
-
 import com.aprzybysz.library.data.model.Book;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -22,8 +21,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class JsonParser {
 
+  //public static final String JSON_FILE_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
+  public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private static JsonParser INSTANCE = null;
   private static Gson gson = null;
+  private static String fileToRead = System.getProperty("user.dir") + "/books.json";
 
   private JsonParser() {
     gson = new Gson();
@@ -34,9 +36,17 @@ public class JsonParser {
     return INSTANCE;
   }
 
-  public List<Book> readFromFileAll(String file) {
+  public void setFileToRead(String file) {
+    fileToRead = file;
+  }
+
+  public String getFileToRead() {
+    return fileToRead;
+  }
+
+  public List<Book> readFromFileAll() {
     List<Book> books = new ArrayList<>();
-    try(Reader reader = new FileReader(file)) {
+    try(Reader reader = new FileReader(fileToRead)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
 
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
@@ -54,7 +64,7 @@ public class JsonParser {
     String publisher = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : null;
     String subtitle = volumeInfo.has("subtitle") ? volumeInfo.get("subtitle").getAsString() : null;
     String date = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : null;
-    long publishedDateInUnix = getEpochMiliDate(date);
+    long publishedDateInUnix = getEpochMilliDate(date);
     String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : null;
     int pageCount = volumeInfo.has("pageCount") ? volumeInfo.get("pageCount").getAsInt() : 0;
     String isbn = "";
@@ -87,7 +97,7 @@ public class JsonParser {
         thumbnailUrl, language, previewLink, averageRating, ratingCount, authorsArray, categoriesArray);
   }
 
-  private long getEpochMiliDate(String date) {
+  private long getEpochMilliDate(String date) {
     DateTimeFormatter format = new DateTimeFormatterBuilder()
         .appendPattern("yyyy")
         .parseDefaulting(ChronoField.MONTH_OF_YEAR, 1)

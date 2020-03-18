@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class BookService {
 
   public List<Book> findAll() {
-    return JsonParser.getInstance().readFromFileAll(System.getProperty("user.dir") + "/books.json");
+    return JsonParser.getInstance().readFromFileAll();
   }
 
   public Book findByIsbn(String isbn) {
     var list = findAll().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
-    if(list.size() <= 1) {
+    if(list.size() == 1) {
       return list.get(0);
     } else {
       return null;

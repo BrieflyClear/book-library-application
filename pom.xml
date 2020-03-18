@@ -10,13 +10,15 @@
     </parent>
     <groupId>com.aprzybysz</groupId>
     <artifactId>library</artifactId>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>Book Library Application</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Google Book Library App</description>
 
     <properties>
         <java.version>13</java.version>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <maven.compiler.target>13</maven.compiler.target>
+        <maven.compiler.source>13</maven.compiler.source>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <junit.platform.version>1.5.2</junit.platform.version>
     </properties>

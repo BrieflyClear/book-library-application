@@ -1,6 +1,5 @@
 package com.aprzybysz.library.data.model;
 
-import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ public class Book {
   private String title;
   private String subtitle;
   private String publisher;
-  private long publishedDate; // UNIX timestamp
+  private long publishedDate; // UNIX timestamp in milliseconds
   private String description;
   private int pageCount;
   private String thumbnailUrl;
