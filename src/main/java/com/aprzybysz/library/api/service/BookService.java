@@ -23,12 +23,12 @@ public class BookService {
     return jsonParser.readFromExternalJsonFile();
   }
 
-  public Book findByIsbn(String isbn) {
+  public Optional<Book> findByIsbn(String isbn) {
     var list = findAll().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
     if(list.size() == 1) {
-      return list.get(0);
+      return Optional.ofNullable(list.get(0));
     } else {
-      return null;
+      return Optional.empty();
     }
   }
 

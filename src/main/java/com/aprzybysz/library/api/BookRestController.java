@@ -1,5 +1,6 @@
 package com.aprzybysz.library.api;
 
+import com.aprzybysz.library.api.exceptions.BookNotFoundException;
 import com.aprzybysz.library.data.model.Book;
 import com.aprzybysz.library.api.service.BookService;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class BookRestController {
 
   @GetMapping("/isbn/{isbn}")
   public Book getByIsbn(@PathVariable("isbn") String isbn) {
-    return service.findByIsbn(isbn);
+    return service.findByIsbn(isbn).orElseThrow(() -> new BookNotFoundException(isbn));
   }
 
   @GetMapping("/category/{category}")
