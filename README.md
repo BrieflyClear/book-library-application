@@ -8,12 +8,14 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Spring Boot 2.2.5
   - Lombok
   - GSon 2.8.6
+  
 **+Add description**
 
 ## Testing:
   - JUnit 5.5.2
   - Mockito 1.10.19
   - Maven Surefire Plugin
+  
 **+Add description**
   
 ## Design Patterns:
@@ -28,9 +30,10 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
 ### Running 
  After building the application run following command to start it: `java -jar target/library-1.0.0.jar`
  To provide any external JSON datasource: `java -jar target/library-1.0.0.jar -Dspring-boot.run.arguments= {absolute file path}`
+ 
  The default JSON datasource is provided. It is "/misc/books.json". There is no need to include it when running commands.
 ### Testing
- To run the test, run the following command: mvn test
+ To run the test, run the following command: `mvn test`
 
 
   
