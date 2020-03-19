@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class JsonParser {
 
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
-  private static String externalJsonFilePath = System.getProperty("user.dir") + "/books.json";
+  private static String externalJsonFilePath = System.getProperty("user.dir") + "/misc/books.json";
 
   private Gson gson;
 
