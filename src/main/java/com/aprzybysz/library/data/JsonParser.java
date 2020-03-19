@@ -23,24 +23,19 @@ public class JsonParser {
 
   //public static final String JSON_FILE_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
-  private static JsonParser INSTANCE = null;
-  private static Gson gson = null;
   private static String externalJsonFilePath = System.getProperty("user.dir") + "/books.json";
 
-  private JsonParser() {
+  private Gson gson;
+
+  public JsonParser() {
     gson = new Gson();
   }
 
-  public static JsonParser getInstance() {
-    if(INSTANCE == null) INSTANCE = new JsonParser();
-    return INSTANCE;
-  }
-
-  public void setFileToRead(String file) {
+  public static void setFileToRead(String file) {
     externalJsonFilePath = file;
   }
 
-  public String getFileToRead() {
+  public static String getFileToRead() {
     return externalJsonFilePath;
   }
 
