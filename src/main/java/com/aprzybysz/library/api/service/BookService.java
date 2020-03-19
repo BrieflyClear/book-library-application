@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class BookService {
 
   public List<Book> findAll() {
-    return JsonParser.getInstance().readFromFileAll();
+    return JsonParser.getInstance().readFromExternalJsonFile();
   }
 
   public Book findByIsbn(String isbn) {
