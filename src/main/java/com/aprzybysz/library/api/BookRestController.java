@@ -25,7 +25,7 @@ public class BookRestController {
   }
 
   @GetMapping("/isbn/{isbn}")
-  public List<Book> getByIsbn(@PathVariable("isbn") String isbn) {
+  public Book getByIsbn(@PathVariable("isbn") String isbn) {
     return service.findByIsbn(isbn);
   }
 

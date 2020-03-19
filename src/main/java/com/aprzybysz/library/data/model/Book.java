@@ -11,13 +11,14 @@ public class Book {
   private String title;
   private String subtitle;
   private String publisher;
-  private long publishedDate; // UNIX timestamp
+  private long publishedDate; // UNIX timestamp in milliseconds
   private String description;
   private int pageCount;
   private String thumbnailUrl;
   private String language;
   private String previewLink;
   private double averageRating;
+  private int ratingsCount;
   private String[] authors;
   private String[] categories;
 }
