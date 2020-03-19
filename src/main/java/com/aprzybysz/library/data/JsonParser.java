@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.LogManager;
 
 import javax.validation.constraints.NotNull;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class JsonParser {
 
-  //public static final String JSON_FILE_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
+  static org.apache.logging.log4j.Logger logger = LogManager.getLogger(JsonParser.class);
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private static JsonParser INSTANCE = null;
   private static Gson gson = null;
@@ -36,11 +37,11 @@ public class JsonParser {
     return INSTANCE;
   }
 
-  public void setFileToRead(String file) {
+  public static void setFileToRead(String file) {
     externalJsonFilePath = file;
   }
 
-  public String getFileToRead() {
+  public static String getFileToRead() {
     return externalJsonFilePath;
   }
 
@@ -48,29 +49,35 @@ public class JsonParser {
     List<Book> books = new ArrayList<>();
     try(Reader reader = new FileReader(externalJsonFilePath)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
-
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
       jsonItemsArray.forEach(it -> books.add(extractBookFromJsonBookElement(it)));
     } catch(IOException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage());
       // TODO add error page
     }
     return books;
   }
-
+/*
   public List<Book> parseJsonFile(String jsonBooks) {
     List<Book> books = new ArrayList<>();
-    JsonObject root = gson.fromJson(jsonBooks, JsonObject.class);
+    JsonReader reader = new JsonReader(new StringReader(jsonBooks));
+    reader.setLenient(true);
+    var jp = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    JsonObject root = jp.fromJson(jsonBooks, JsonObject.class);
+    //var root = (JsonObject) rootObject;
+    //JsonPrimitive primitive = new JsonPrimitive(jsonBooks);
+    //var root = primitive.getAsJsonObject();
+
     if(root.isJsonArray()) {
       root.getAsJsonArray().forEach(it -> books.add(extractBookFromJsonBookElement(it)));
-    } else if(root.has("items")) {
-      root.getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else if(root.getAsJsonObject().has("items")) {
+      root.getAsJsonObject().getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
     } else {
       books.add(extractBookFromJsonBookElement(root));
     }
     return books;
   }
-
+*/
   private Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
     String id = object.getAsJsonObject().get("id").getAsString();
     JsonObject volumeInfo = object.getAsJsonObject().get("volumeInfo").getAsJsonObject();
