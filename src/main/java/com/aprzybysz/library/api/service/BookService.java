@@ -4,6 +4,7 @@ import com.aprzybysz.library.api.dto.AuthorRatingDTO;
 import com.aprzybysz.library.data.JsonParser;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,8 +16,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class BookService {
 
+  @Autowired
+  private JsonParser jsonParser;
+
   public List<Book> findAll() {
-    return JsonParser.getInstance().readFromExternalJsonFile();
+    return jsonParser.readFromExternalJsonFile();
   }
 
   public Optional<Book> findByIsbn(String isbn) {
