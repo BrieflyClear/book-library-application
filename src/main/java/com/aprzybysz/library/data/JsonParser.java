@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class JsonParser {
 
-  //public static final String JSON_FILE_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9._-]+)+\\\\?";
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private static JsonParser INSTANCE = null;
   private static Gson gson = null;
@@ -107,15 +106,26 @@ public class JsonParser {
     authors.toArray(authorsArray);
     String[] categoriesArray = new String[categories.size()];
     categories.toArray(categoriesArray);
-    return new Book(isbn, title, subtitle, publisher, publishedDateInUnix, description, pageCount,
-        thumbnailUrl, language, previewLink, averageRating, ratingCount, authorsArray, categoriesArray);
+    return new Book.BookBuilder()
+        .isbn(isbn)
+        .title(title)
+        .subtitle(subtitle)
+        .publisher(publisher)
+        .publishedDate(publishedDateInUnix)
+        .description(description)
+        .pageCount(pageCount)
+        .thumbnailUrl(thumbnailUrl)
+        .language(language)
+        .averageRating(averageRating)
+        .ratingsCount(ratingCount)
+        .previewLink(previewLink)
+        .authors(authorsArray)
+        .categories(categoriesArray)
+        .create();
   }
 
   private long getEpochMilliDate(String date) {
-    DateTimeFormatter format = new DateTimeFormatterBuilder()
-        .appendPattern("yyyy")
-        .parseDefaulting(ChronoField.MONTH_OF_YEAR, 1)
-        .parseDefaulting(ChronoField.DAY_OF_MONTH, 1).toFormatter();
+    DateTimeFormatter format = new DateTimeFormatterBuilder().appendPattern("yyyy").parseDefaulting(ChronoField.MONTH_OF_YEAR, 1).parseDefaulting(ChronoField.DAY_OF_MONTH, 1).toFormatter();
     return date != null
         ? date.length() > 4
         ? LocalDate.parse(date).atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
@@ -131,8 +141,7 @@ public class JsonParser {
     });
     if(isbnAtomic.get() != null) {
       return isbnAtomic.get();
-    }
-    else {
+    } else {
       return null;
     }
   }
