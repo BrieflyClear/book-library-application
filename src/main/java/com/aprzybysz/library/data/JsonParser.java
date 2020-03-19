@@ -25,7 +25,7 @@ public class JsonParser {
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private static JsonParser INSTANCE = null;
   private static Gson gson = null;
-  private static String fileToRead = System.getProperty("user.dir") + "/books.json";
+  private static String externalJsonFilePath = System.getProperty("user.dir") + "/books.json";
 
   private JsonParser() {
     gson = new Gson();
@@ -37,27 +37,41 @@ public class JsonParser {
   }
 
   public void setFileToRead(String file) {
-    fileToRead = file;
+    externalJsonFilePath = file;
   }
 
   public String getFileToRead() {
-    return fileToRead;
+    return externalJsonFilePath;
   }
 
-  public List<Book> readFromFileAll() {
+  public List<Book> readFromExternalJsonFile() {
     List<Book> books = new ArrayList<>();
-    try(Reader reader = new FileReader(fileToRead)) {
+    try(Reader reader = new FileReader(externalJsonFilePath)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
 
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
-      jsonItemsArray.forEach(it -> books.add(parse(it)));
+      jsonItemsArray.forEach(it -> books.add(extractBookFromJsonBookElement(it)));
     } catch(IOException e) {
       e.printStackTrace();
+      // TODO add error page
     }
     return books;
   }
 
-  private Book parse(@NotNull JsonElement object) {
+  public List<Book> parseJsonFile(String jsonBooks) {
+    List<Book> books = new ArrayList<>();
+    JsonObject root = gson.fromJson(jsonBooks, JsonObject.class);
+    if(root.isJsonArray()) {
+      root.getAsJsonArray().forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else if(root.has("items")) {
+      root.getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else {
+      books.add(extractBookFromJsonBookElement(root));
+    }
+    return books;
+  }
+
+  private Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
     String id = object.getAsJsonObject().get("id").getAsString();
     JsonObject volumeInfo = object.getAsJsonObject().get("volumeInfo").getAsJsonObject();
     String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : null;
