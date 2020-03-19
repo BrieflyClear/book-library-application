@@ -49,21 +49,25 @@ public class BookService {
     ratings.forEach(it -> {
       var authorsBooksList = books.stream()
           .filter(g -> Arrays.asList(g.getAuthors()).contains(it.getAuthor())).collect(Collectors.toList());
-      double sum = 0;
-      int count = 0;
-      for(Book book : authorsBooksList) {
-        if(book.getRatingsCount() > 0) {
-          sum += book.getAverageRating() * book.getRatingsCount();
-          count += book.getRatingsCount();
-        }
-      }
-      if(count == 0) {
-        it.setAverageRating(0.0);
-      } else {
-        it.setAverageRating(BigDecimal.valueOf(sum / count).setScale(2, RoundingMode.HALF_UP).doubleValue());
-      }
+      it.setAverageRating(calculateAverageRating(authorsBooksList));
     });
     ratings.removeIf(g -> g.getAverageRating() == 0);
     return ratings;
+  }
+
+  public double calculateAverageRating(List<Book> oneAuthorBooks) {
+    double sum = 0;
+    int count = 0;
+    for(Book book : oneAuthorBooks) {
+      if(book.getRatingsCount() > 0) {
+        sum += book.getAverageRating() * book.getRatingsCount();
+        count += book.getRatingsCount();
+      }
+    }
+    if(count == 0) {
+      return 0.0;
+    } else {
+      return (BigDecimal.valueOf(sum / count).setScale(2, RoundingMode.HALF_UP).doubleValue());
+    }
   }
 }
