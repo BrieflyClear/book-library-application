@@ -12,14 +12,14 @@ public class Book {
   private String title;
   private String subtitle;
   private String publisher;
-  private long publishedDate; // UNIX timestamp in milliseconds
+  private Long publishedDate; // UNIX timestamp in milliseconds
   private String description;
-  private int pageCount;
+  private Integer pageCount;
   private String thumbnailUrl;
   private String language;
   private String previewLink;
-  private double averageRating;
-  private int ratingsCount;
+  private Double averageRating;
+  private Integer ratingsCount;
   private String[] authors;
   private String[] categories;
 
@@ -79,19 +79,19 @@ public class Book {
       book.categories = value;
       return this;
     }
-    public BookBuilder publishedDate(long unixValue) {
+    public BookBuilder publishedDate(Long unixValue) {
       book.publishedDate = unixValue;
       return this;
     }
-    public BookBuilder pageCount(int value) {
+    public BookBuilder pageCount(Integer value) {
       book.pageCount = value;
       return this;
     }
-    public BookBuilder averageRating(double rating) {
+    public BookBuilder averageRating(Double rating) {
       book.averageRating = rating;
       return this;
     }
-    public BookBuilder ratingsCount(int value) {
+    public BookBuilder ratingsCount(Integer value) {
       book.ratingsCount = value;
       return this;
     }

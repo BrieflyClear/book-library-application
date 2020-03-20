@@ -1,14 +1,12 @@
-package com.aprzybysz.library.api.service;
+package com.aprzybysz.library.service;
 
-import com.aprzybysz.library.api.dto.AuthorRatingDTO;
+import com.aprzybysz.library.data.util.IAverageRatingCalculator;
 import com.aprzybysz.library.data.JsonParser;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,6 +16,9 @@ public class BookService {
 
   @Autowired
   private JsonParser jsonParser;
+
+  @Autowired
+  private IAverageRatingCalculator calculatorStrategy;
 
   public List<Book> findAll() {
     return jsonParser.readFromExternalJsonFile();
@@ -44,30 +45,18 @@ public class BookService {
     return books;
   }
 
-  public List<AuthorRatingDTO> getAuthorsRatings() {
+  public Map<String, Double> getAuthorsRatings() {
     List<Book> books = findAll();
     Set<String> authors = new HashSet<>(Collections.emptySet());
+    Map<String, Double> ratings = new HashMap<>();
+    books.removeIf(g -> g.getAuthors() == null);
     books.forEach(it -> authors.addAll(Arrays.asList(it.getAuthors())));
-    List<AuthorRatingDTO> ratings = new ArrayList<>();
-    authors.forEach(it -> ratings.add(new AuthorRatingDTO(it, 0.0)));
-    ratings.forEach(it -> {
-      var authorsBooksList = books.stream()
-          .filter(g -> Arrays.asList(g.getAuthors()).contains(it.getAuthor())).collect(Collectors.toList());
-      double sum = 0;
-      int count = 0;
-      for(Book book : authorsBooksList) {
-        if(book.getRatingsCount() > 0) {
-          sum += book.getAverageRating() * book.getRatingsCount();
-          count += book.getRatingsCount();
-        }
-      }
-      if(count == 0) {
-        it.setAverageRating(0.0);
-      } else {
-        it.setAverageRating(BigDecimal.valueOf(sum / count).setScale(2, RoundingMode.HALF_UP).doubleValue());
+    authors.forEach(it -> {
+      Double avg = calculatorStrategy.calculate(books, it);
+      if(avg != null) {
+        ratings.put(it, avg);
       }
     });
-    ratings.removeIf(g -> g.getAverageRating() == 0);
     return ratings;
   }
 }

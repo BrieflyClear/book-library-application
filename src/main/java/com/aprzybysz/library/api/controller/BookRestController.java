@@ -1,10 +1,9 @@
-package com.aprzybysz.library.api;
+package com.aprzybysz.library.api.controller;
 
 import com.aprzybysz.library.api.dto.BookDTO;
 import com.aprzybysz.library.api.exceptions.BookNotFoundException;
 import com.aprzybysz.library.api.mapper.BookMapper;
-import com.aprzybysz.library.data.model.Book;
-import com.aprzybysz.library.api.service.BookService;
+import com.aprzybysz.library.service.BookService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

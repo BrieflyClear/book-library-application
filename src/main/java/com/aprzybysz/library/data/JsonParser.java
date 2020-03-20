@@ -74,9 +74,9 @@ public class JsonParser {
     String publisher = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : null;
     String subtitle = volumeInfo.has("subtitle") ? volumeInfo.get("subtitle").getAsString() : null;
     String date = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : null;
-    long publishedDateInUnix = getEpochMilliDate(date);
+    Long publishedDateInUnix = getEpochMilliDate(date);
     String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : null;
-    int pageCount = volumeInfo.has("pageCount") ? volumeInfo.get("pageCount").getAsInt() : 0;
+    Integer pageCount = volumeInfo.has("pageCount") ? volumeInfo.get("pageCount").getAsInt() : null;
     String isbn = "";
     if(volumeInfo.has("industryIdentifiers")) {
       isbn = getIsbn(volumeInfo.get("industryIdentifiers").getAsJsonArray());
@@ -89,8 +89,8 @@ public class JsonParser {
     String thumbnailUrl = volumeInfo.get("imageLinks").getAsJsonObject().get("thumbnail").getAsString();
     String language = volumeInfo.get("language").getAsString();
     String previewLink = volumeInfo.get("previewLink").getAsString();
-    double averageRating = volumeInfo.has("averageRating") ? volumeInfo.get("averageRating").getAsDouble() : 0;
-    int ratingCount = volumeInfo.has("ratingsCount") ? volumeInfo.get("ratingsCount").getAsInt() : 0;
+    Double averageRating = volumeInfo.has("averageRating") ? volumeInfo.get("averageRating").getAsDouble() : null;
+    Integer ratingCount = volumeInfo.has("ratingsCount") ? volumeInfo.get("ratingsCount").getAsInt() : null;
     ArrayList<String> authors = new ArrayList<>();
     if(volumeInfo.has("authors")) {
       volumeInfo.get("authors").getAsJsonArray().forEach(g -> authors.add(g.getAsString()));
@@ -99,10 +99,16 @@ public class JsonParser {
     if(volumeInfo.has("categories")) {
       volumeInfo.get("categories").getAsJsonArray().forEach(g -> categories.add(g.getAsString()));
     }
-    String[] authorsArray = new String[authors.size()];
-    authors.toArray(authorsArray);
-    String[] categoriesArray = new String[categories.size()];
-    categories.toArray(categoriesArray);
+    String[] authorsArray = null;
+    if(!authors.isEmpty()) {
+      authorsArray = new String[authors.size()];
+      authors.toArray(authorsArray);
+    }
+    String[] categoriesArray = null;
+    if(!categories.isEmpty()) {
+      categoriesArray = new String[categories.size()];
+      categories.toArray(categoriesArray);
+    }
     return new Book.BookBuilder()
         .isbn(isbn)
         .title(title)
@@ -121,13 +127,13 @@ public class JsonParser {
         .create();
   }
 
-  private long getEpochMilliDate(String date) {
+  private Long getEpochMilliDate(String date) {
     DateTimeFormatter format = new DateTimeFormatterBuilder().appendPattern("yyyy").parseDefaulting(ChronoField.MONTH_OF_YEAR, 1).parseDefaulting(ChronoField.DAY_OF_MONTH, 1).toFormatter();
     return date != null
         ? date.length() > 4
         ? LocalDate.parse(date).atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
         : LocalDate.parse(date, format).atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
-        : 0L;
+        : null;
   }
 
   private String getIsbn(JsonArray isbnArray) {
