@@ -1,5 +1,6 @@
 package com.aprzybysz.library.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,18 +10,19 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookDTO {
   private String isbn; // bookDTO's unique identifier
   private String title;
   private String subtitle;
   private String publisher;
-  private long publishedDate; // UNIX timestamp in milliseconds
+  private Long publishedDate; // UNIX timestamp in milliseconds
   private String description;
-  private int pageCount;
+  private Integer pageCount;
   private String thumbnailUrl;
   private String language;
   private String previewLink;
-  private double averageRating;
+  private Double averageRating;
   private String[] authors;
   private String[] categories;
 
@@ -80,15 +82,15 @@ public class BookDTO {
       bookDTO.categories = value;
       return this;
     }
-    public BookDTOBuilder publishedDate(long unixValue) {
+    public BookDTOBuilder publishedDate(Long unixValue) {
       bookDTO.publishedDate = unixValue;
       return this;
     }
-    public BookDTOBuilder pageCount(int value) {
+    public BookDTOBuilder pageCount(Integer value) {
       bookDTO.pageCount = value;
       return this;
     }
-    public BookDTOBuilder averageRating(double rating) {
+    public BookDTOBuilder averageRating(Double rating) {
       bookDTO.averageRating = rating;
       return this;
     }

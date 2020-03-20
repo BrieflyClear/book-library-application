@@ -1,14 +1,16 @@
 package com.aprzybysz.library.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
 
   private String author;
-  private double averageRating;
+  private Double averageRating;
 
   @Override
   public int compareTo(AuthorRatingDTO o) {
