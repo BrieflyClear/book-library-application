@@ -23,6 +23,10 @@ public class Book {
   private String[] authors;
   private String[] categories;
 
+  public static BookBuilder builder() {
+    return new BookBuilder();
+  }
+
   public static final class BookBuilder {
     Book book = new Book();
 

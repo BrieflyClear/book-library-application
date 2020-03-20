@@ -1,6 +1,8 @@
 package com.aprzybysz.library.api;
 
+import com.aprzybysz.library.api.dto.BookDTO;
 import com.aprzybysz.library.api.exceptions.BookNotFoundException;
+import com.aprzybysz.library.api.mapper.BookMapper;
 import com.aprzybysz.library.data.model.Book;
 import com.aprzybysz.library.api.service.BookService;
 import lombok.AllArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
@@ -20,18 +23,21 @@ public class BookRestController {
   @Autowired
   private BookService service;
 
+  @Autowired
+  private BookMapper mapper;
+
   @GetMapping
-  public List<Book> getAll(){
-    return service.findAll();
+  public List<BookDTO> getAll(){
+    return service.findAll().stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
   }
 
   @GetMapping("/isbn/{isbn}")
-  public Book getByIsbn(@PathVariable("isbn") String isbn) {
-    return service.findByIsbn(isbn).orElseThrow(() -> new BookNotFoundException(isbn));
+  public BookDTO getByIsbn(@PathVariable("isbn") String isbn) {
+    return service.findByIsbn(isbn).map(mapper::bookToBookDTO).orElseThrow(() -> new BookNotFoundException(isbn));
   }
 
   @GetMapping("/category/{category}")
-  public List<Book> getByCategory(@PathVariable("category") String category) {
-    return service.findByCategory(category);
+  public List<BookDTO> getByCategory(@PathVariable("category") String category) {
+    return service.findByCategory(category).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
   }
 }
