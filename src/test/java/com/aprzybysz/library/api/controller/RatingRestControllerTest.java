@@ -51,7 +51,7 @@ class RatingRestControllerTest {
     when(service.getAuthorsRatings()).thenReturn(test);
 
     AuthorRatingDTO[] ratings = get(uri + "/api/rating")
-        .then().statusCode(HttpStatus.OK.value()).extract().as(AuthorRatingDTO[].class);
+        .then().assertThat().statusCode(HttpStatus.OK.value()).extract().as(AuthorRatingDTO[].class);
     assertEquals("Author Test", ratings[0].getAuthor());
     assertEquals(3.87, ratings[0].getAverageRating());
     assertEquals(0L, Arrays.stream(ratings).filter(i -> i.getAverageRating() == 0.0).count());

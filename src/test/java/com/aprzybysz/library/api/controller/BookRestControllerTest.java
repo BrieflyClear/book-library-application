@@ -60,7 +60,8 @@ class BookRestControllerTest {
     Book test = new Book.BookBuilder().isbn("9781592432172").title("title-test").create();
     when(service.findAll()).thenReturn(List.of(test));
 
-    var list = get(uri + "/api/books").then().extract().as(BookDTO[].class);
+    var list = get(uri + "/api/books")
+        .then().assertThat().statusCode(HttpStatus.OK.value()).extract().as(BookDTO[].class);
     assertEquals(1, list.length);
     assertEquals(test.getIsbn(), list[0].getIsbn());
     assertEquals(test.getTitle(), list[0].getTitle());
@@ -83,7 +84,8 @@ class BookRestControllerTest {
         .create();
     when(service.findByCategory("Computers")).thenReturn(List.of(test));
 
-    BookDTO[] list = get(uri + "/api/books/category/Computers").then().extract().as(BookDTO[].class);
+    BookDTO[] list = get(uri + "/api/books/category/Computers")
+        .then().assertThat().statusCode(HttpStatus.OK.value()).extract().as(BookDTO[].class);
     assertEquals(1, list.length);
     assertEquals(test.getIsbn(), list[0].getIsbn());
     assertEquals(test.getTitle(), list[0].getTitle());
