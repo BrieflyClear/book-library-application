@@ -5,94 +5,108 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Book {
 
-  private String isbn; // book's unique identifier
-  private String title;
-  private String subtitle;
-  private String publisher;
-  private Long publishedDate; // UNIX timestamp in milliseconds
-  private String description;
-  private Integer pageCount;
-  private String thumbnailUrl;
-  private String language;
-  private String previewLink;
-  private Double averageRating;
-  private Integer ratingsCount;
-  private String[] authors;
-  private String[] categories;
+  private final String isbn; // bookDTO's unique identifier
+  private final String title;
+  private final String subtitle;
+  private final String publisher;
+  private final Long publishedDate; // UNIX timestamp in milliseconds
+  private final String description;
+  private final Integer pageCount;
+  private final String thumbnailUrl;
+  private final String language;
+  private final String previewLink;
+  private final Double averageRating;
+  private final Integer ratingsCount;
+  private final String[] authors;
+  private final String[] categories;
 
   public static BookBuilder builder() {
     return new BookBuilder();
   }
 
   public static final class BookBuilder {
-    Book book = new Book();
+    private String isbn;
+    private String title;
+    private String subtitle;
+    private String publisher;
+    private Long publishedDate;
+    private String description;
+    private Integer pageCount;
+    private String thumbnailUrl;
+    private String language;
+    private String previewLink;
+    private Double averageRating;
+    private Integer ratingsCount;
+    private String[] authors;
+    private String[] categories;
 
     public BookBuilder() { }
 
     public Book create() {
-      if(book.isbn == null || book.title == null) {
+      if(this.isbn == null || this.title == null) {
         throw new IllegalArgumentException();
       }
-      return book;
+      return new Book(isbn, title, subtitle, publisher, publishedDate, description, pageCount, thumbnailUrl,
+          language, previewLink, averageRating, ratingsCount, authors, categories);
     }
 
     public BookBuilder isbn(String isbn) {
-      book.isbn = isbn;
+      this.isbn = isbn;
       return this;
     }
     public BookBuilder title(String title) {
-      book.title = title;
+      this.title = title;
       return this;
     }
     public BookBuilder subtitle(String subtitle) {
-      book.subtitle = subtitle;
+      this.subtitle = subtitle;
       return this;
     }
     public BookBuilder publisher(String publisher) {
-      book.publisher = publisher;
+      this.publisher = publisher;
       return this;
     }
     public BookBuilder description(String value) {
-      book.description = value;
+      this.description = value;
       return this;
     }
     public BookBuilder thumbnailUrl(String value) {
-      book.thumbnailUrl = value;
+      this.thumbnailUrl = value;
       return this;
     }
     public BookBuilder language(String value) {
-      book.language = value;
+      this.language = value;
       return this;
     }
     public BookBuilder previewLink(String value) {
-      book.previewLink = value;
+      this.previewLink = value;
       return this;
     }
     public BookBuilder authors(String[] value) {
-      book.authors = value;
+      this.authors = value;
       return this;
     }
     public BookBuilder categories(String[] value) {
-      book.categories = value;
+      this.categories = value;
       return this;
     }
     public BookBuilder publishedDate(Long unixValue) {
-      book.publishedDate = unixValue;
+      this.publishedDate = unixValue;
       return this;
     }
     public BookBuilder pageCount(Integer value) {
-      book.pageCount = value;
+      this.pageCount = value;
       return this;
     }
     public BookBuilder averageRating(Double rating) {
-      book.averageRating = rating;
+      this.averageRating = rating;
       return this;
     }
     public BookBuilder ratingsCount(Integer value) {
-      book.ratingsCount = value;
+      this.ratingsCount = value;
       return this;
     }
   }

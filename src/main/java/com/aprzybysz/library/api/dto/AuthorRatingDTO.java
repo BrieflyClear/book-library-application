@@ -6,12 +6,12 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
 
-  private String author;
-  private Double averageRating;
+  private final String author;
+  private final Double averageRating;
 
   @Override
   public int compareTo(AuthorRatingDTO o) {
@@ -29,17 +29,18 @@ public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
   }
 
   public static final class AuthorRatingDTOBuilder {
-    AuthorRatingDTO dto = new AuthorRatingDTO();
+    String author;
+    Double avg;
 
     public AuthorRatingDTO create() {
-      return dto;
+      return new AuthorRatingDTO(author, avg);
     }
     public AuthorRatingDTOBuilder author(String value) {
-      dto.author = value;
+      author = value;
       return this;
     }
     public AuthorRatingDTOBuilder averageRating(Double value) {
-      dto.averageRating = value;
+      avg = value;
       return this;
     }
   }
