@@ -1,13 +1,12 @@
 package com.aprzybysz.library.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
 
@@ -23,5 +22,25 @@ public class AuthorRatingDTO implements Comparable<AuthorRatingDTO> {
       return 1;
     }
     return averageRating > o.averageRating ? 1 : -1;
+  }
+
+  public static AuthorRatingDTO.AuthorRatingDTOBuilder builder() {
+    return new AuthorRatingDTOBuilder();
+  }
+
+  public static final class AuthorRatingDTOBuilder {
+    AuthorRatingDTO dto = new AuthorRatingDTO();
+
+    public AuthorRatingDTO create() {
+      return dto;
+    }
+    public AuthorRatingDTOBuilder author(String value) {
+      dto.author = value;
+      return this;
+    }
+    public AuthorRatingDTOBuilder averageRating(Double value) {
+      dto.averageRating = value;
+      return this;
+    }
   }
 }

@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Book {
 
   private String isbn; // book's unique identifier
