@@ -16,7 +16,7 @@ public class BookLibraryApplication {
 	public static void main(String[] args) {
 		for(String arg : args) {
 			if(Pattern.matches(JsonParser.JSON_FILE_REGEX, arg)) {
-				JsonParser.getInstance().setFileToRead(arg);
+				JsonParser.setFileToRead(arg);
 				logger.info("Set new external JSON file: %s" + arg);
 			}
 		}
