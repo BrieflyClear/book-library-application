@@ -7,7 +7,7 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Java 13
   - Maven 3.8.1
   - Spring Boot 2.2.5
-  - GSon 2.8.6
+  - Gson 2.8.6
   - Lombok - to skip methods like Getters, Setters, Equals, etc.
   - MapStruct - to map raw POJO to DTO
   - Log4J - to log to external files
@@ -24,11 +24,13 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
 **+Add description**
   
 ## Design Patterns:
-  - **Builder** - the "Book" class contains multiple fields. It is better for readability to not initialize them all in the constructor. Also we want the Book object to be immutable, so it is sure the client will get unchanged data.
-  - **Data Transfer Object (DTO)** - the "AuthorRatingDTO" objects are used to transfer data of the Author and its average rating due to a HTTP GET request ("/ratings").
+  - **Builder** - the `Book` class contains multiple fields. It is better for readability to not initialize them all in the constructor. Also we want the Book object to be immutable, so it is sure the client will get unchanged data. Also `BookDTO` and `AuthorRatingDTO` classes
+  - **Data Transfer Object (DTO)** - used to display data as primitive types and when we don't want the clients to see some of the data stored in the POJOs. The `AuthorRatingDTO` objects are used to transfer data of the Author and its average rating due to a HTTP GET request ("/ratings"). Also the `BookDTO` objects
   - **Service layer** - separates the API endpoints from the data layer, establishes a set of available operations and coordinates the application’s response in each operation.
-  - **Immutable objects** - to secure the data during processing.
-  - Strategy - the algorithm responsible for calculating the author's average rating. 
+  - **Immutable objects** - to secure the data during processing. Concerns the same classes as the `Builder` desingn pattern
+  - **Strategy** - the algorithm responsible for calculating the author's average rating. `IAverageRatingCalculator`
+  - **Singleton** - the `DataProvider` must be a singleton because it holds cached data. Initialization is done by static factory method and is lazy, so an instance won't be created until it is needed.
+  - **Static factory method** - for the `DataProvider` singleton class
 
 ## Instructions
 ### Building 
@@ -41,6 +43,18 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
  The default JSON datasource is provided. It is "/misc/books.json". There is no need to include it when running commands.
 ### Testing
  To run the test, run the following command: `mvn test`
+ 
+### API Endpoints
+  - /api
+    - /books
+      - /isbn/{isbn}
+      - /category/{category}
+    - /rating
+    - /google
+      - /search/{value}
+      - /search/{value}/startIndex/{index}
+      - /search/{value}/limit/{maxResults}
+      - /search/{value}/startIndex/{index}/limit/{maxResults}
 
+### Dashboard (fullstack taks)
 
-  
