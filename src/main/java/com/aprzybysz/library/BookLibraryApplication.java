@@ -1,5 +1,5 @@
 package com.aprzybysz.library;
-import com.aprzybysz.library.data.DataProvider;
+import com.aprzybysz.library.data.provider.DataProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;

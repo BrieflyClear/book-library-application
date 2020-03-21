@@ -1,4 +1,4 @@
-package com.aprzybysz.library.data;
+package com.aprzybysz.library.data.provider;
 
 import com.aprzybysz.library.data.model.Book;
 import com.google.gson.Gson;
@@ -6,7 +6,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
 import java.io.FileReader;
@@ -31,6 +33,8 @@ public class DataProvider {
   static org.apache.logging.log4j.Logger logger = LogManager.getLogger(DataProvider.class);
 
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
+  public static final String GOOGLE_API_KEY = "AIzaSyDWESzsUyAtujHwVuXz8eqpa6OT8tZvFVo";
+  public static final String GOOGLE_API_URI = "https://www.googleapis.com/books/v1/volumes";
   private String externalJsonFilePath = System.getProperty("user.dir") + "/misc/books.json";
   private List<Book> cacheBookList = new ArrayList<>();
   private Gson gson;
@@ -81,27 +85,7 @@ public class DataProvider {
     }
     return books;
   }
-/*
-  public List<Book> parseJsonFile(String jsonBooks) {
-    List<Book> books = new ArrayList<>();
-    JsonReader reader = new JsonReader(new StringReader(jsonBooks));
-    reader.setLenient(true);
-    var jp = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    JsonObject root = jp.fromJson(jsonBooks, JsonObject.class);
-    //var root = (JsonObject) rootObject;
-    //JsonPrimitive primitive = new JsonPrimitive(jsonBooks);
-    //var root = primitive.getAsJsonObject();
 
-    if(root.isJsonArray()) {
-      root.getAsJsonArray().forEach(it -> books.add(extractBookFromJsonBookElement(it)));
-    } else if(root.getAsJsonObject().has("items")) {
-      root.getAsJsonObject().getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
-    } else {
-      books.add(extractBookFromJsonBookElement(root));
-    }
-    return books;
-  }
-*/
   private Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
     String id = object.getAsJsonObject().get("id").getAsString();
     JsonObject volumeInfo = object.getAsJsonObject().get("volumeInfo").getAsJsonObject();
@@ -201,5 +185,28 @@ public class DataProvider {
     } else {
       return null;
     }
+  }
+
+  public List<Book> getBooksFromGoogle(String search, Integer limit) {
+    RestTemplate template = new RestTemplateBuilder().build();
+    String requestURL = GOOGLE_API_URI + "?key=" + GOOGLE_API_KEY + "&q=" + search;
+    if(limit != null && limit > 0) {
+      requestURL = requestURL + "&maxResults=" + limit;
+    }
+    var string = template.getForObject(requestURL, String.class);
+    var json = gson.fromJson(string, JsonObject.class);
+    return parseJsonRootObject(json);
+  }
+
+  private List<Book> parseJsonRootObject(JsonObject root) {
+    List<Book> books = new ArrayList<>();
+    if(root.isJsonArray()) {
+      root.getAsJsonArray().forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else if(root.getAsJsonObject().has("items")) {
+      root.getAsJsonObject().getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else {
+      books.add(extractBookFromJsonBookElement(root));
+    }
+    return books;
   }
 }

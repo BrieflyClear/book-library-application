@@ -1,7 +1,7 @@
 package com.aprzybysz.library.service;
 
 import com.aprzybysz.library.data.util.IAverageRatingCalculator;
-import com.aprzybysz.library.data.DataProvider;
+import com.aprzybysz.library.data.provider.DataProvider;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

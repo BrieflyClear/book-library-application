@@ -1,10 +1,5 @@
 package com.aprzybysz.library.api.service;
 
-import com.aprzybysz.library.data.DataProvider;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class BookServiceTest {
 /*
   @Test

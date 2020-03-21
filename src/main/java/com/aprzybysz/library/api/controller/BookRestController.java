@@ -32,7 +32,8 @@ public class BookRestController {
 
   @GetMapping("/isbn/{isbn}")
   public BookDTO getByIsbn(@PathVariable("isbn") String isbn) {
-    return service.findByIsbn(isbn).map(mapper::bookToBookDTO).orElseThrow(() -> new BookNotFoundException(isbn));
+    return service.findByIsbn(isbn).map(mapper::bookToBookDTO)
+        .orElseThrow(() -> new BookNotFoundException(isbn));
   }
 
   @GetMapping("/category/{category}")
