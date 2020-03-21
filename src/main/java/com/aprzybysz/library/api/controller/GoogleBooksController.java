@@ -26,11 +26,26 @@ public class GoogleBooksController {
 
   @GetMapping("/search/{value}")
   public List<BookDTO> getGoogleBySearch(@PathVariable("value") String value) {
-    return service.findFromGoogle(value, null).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
+    return service.findFromGoogle(value).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
+  }
+
+  @GetMapping("/search/{value}/startIndex/{index}")
+  public List<BookDTO> getGoogleBySearchAndIndex(@PathVariable("value") String value,
+                                         @PathVariable("startIndex") int index) {
+    return service.findFromGoogleWithIndex(value, index).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
   }
 
   @GetMapping("/search/{value}/limit/{maxResults}")
-  public List<BookDTO> getGoogleBySearchWithLimit(@PathVariable("value") String value, @PathVariable("maxResults") int limit) {
-    return service.findFromGoogle(value, limit).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
+  public List<BookDTO> getGoogleBySearchWithLimit(@PathVariable("value") String value,
+                                                  @PathVariable("maxResults") int limit) {
+    return service.findFromGoogleWithLimit(value, limit).stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
+  }
+
+  @GetMapping("/search/{value}/startIndex/{index}/limit/{maxResults}")
+  public List<BookDTO> getGoogleBySearchWithStartingIndexAndLimit(@PathVariable("value") String value,
+                                                               @PathVariable("startIndex") int index,
+                                                               @PathVariable("maxResults") int limit) {
+    return service.findFromGoogleWithIndexAndLimit(value, index, limit)
+        .stream().map(mapper::bookToBookDTO).collect(Collectors.toList());
   }
 }
