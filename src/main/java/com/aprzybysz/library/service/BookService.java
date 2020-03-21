@@ -1,7 +1,7 @@
 package com.aprzybysz.library.service;
 
 import com.aprzybysz.library.data.util.IAverageRatingCalculator;
-import com.aprzybysz.library.data.JsonParser;
+import com.aprzybysz.library.data.DataProvider;
 import com.aprzybysz.library.data.model.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 public class BookService {
 
   @Autowired
-  private JsonParser jsonParser;
+  private DataProvider dataProvider;
 
   @Autowired
   private IAverageRatingCalculator calculatorStrategy;
 
   public List<Book> findAll() {
-    return jsonParser.getAllBooks();
+    return dataProvider.getAllBooks();
   }
 
   public Optional<Book> findByIsbn(String isbn) {
-    var list = jsonParser.getAllBooks().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
+    var list = dataProvider.getAllBooks().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
     if(list.size() == 1) {
       return Optional.ofNullable(list.get(0));
     } else {
@@ -35,7 +35,7 @@ public class BookService {
 
   public List<Book> findByCategory(String category) {
     List<Book> books = new ArrayList<>();
-    jsonParser.getAllBooks().forEach(it -> {
+    dataProvider.getAllBooks().forEach(it -> {
       var array = it.getCategories();
       Arrays.sort(array);
       if(Arrays.binarySearch(array, category) >= 0) {
@@ -46,7 +46,7 @@ public class BookService {
   }
 
   public Map<String, Double> getAuthorsRatings() {
-    List<Book> books = jsonParser.getAllBooks();
+    List<Book> books = dataProvider.getAllBooks();
     Set<String> authors = new HashSet<>();
     Map<String, Double> ratings = new HashMap<>();
     books.removeIf(g -> g.getAuthors() == null);

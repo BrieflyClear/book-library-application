@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JsonParserTest {
+class DataProviderTest {
 
   @Test
   public void testMultipleFilesByRegex() {
@@ -16,11 +16,11 @@ class JsonParserTest {
     String file4 = "abgd.xml";
     String file5 = "abgd.json";
 
-    assertTrue(Pattern.matches(JsonParser.JSON_FILE_REGEX, file1));
-    assertTrue(Pattern.matches(JsonParser.JSON_FILE_REGEX, file2));
-    assertFalse(Pattern.matches(JsonParser.JSON_FILE_REGEX, file3));
-    assertFalse(Pattern.matches(JsonParser.JSON_FILE_REGEX, file4));
-    assertFalse(Pattern.matches(JsonParser.JSON_FILE_REGEX, file5));
+    assertTrue(Pattern.matches(DataProvider.JSON_FILE_REGEX, file1));
+    assertTrue(Pattern.matches(DataProvider.JSON_FILE_REGEX, file2));
+    assertFalse(Pattern.matches(DataProvider.JSON_FILE_REGEX, file3));
+    assertFalse(Pattern.matches(DataProvider.JSON_FILE_REGEX, file4));
+    assertFalse(Pattern.matches(DataProvider.JSON_FILE_REGEX, file5));
   }
 
 }

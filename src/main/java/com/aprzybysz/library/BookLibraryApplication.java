@@ -1,6 +1,6 @@
 package com.aprzybysz.library;
 
-import com.aprzybysz.library.data.JsonParser;
+import com.aprzybysz.library.data.DataProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,8 +11,8 @@ public class BookLibraryApplication {
 
 	public static void main(String[] args) {
 		for(String arg : args) {
-			if(Pattern.matches(JsonParser.JSON_FILE_REGEX, arg)) {
-				JsonParser.getInstance().setFileToRead(arg);
+			if(Pattern.matches(DataProvider.JSON_FILE_REGEX, arg)) {
+				DataProvider.getInstance().setFileToRead(arg);
 			}
 		}
 		SpringApplication.run(BookLibraryApplication.class, args);

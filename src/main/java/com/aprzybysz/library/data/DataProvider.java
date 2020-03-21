@@ -25,22 +25,22 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 
 @Component
-public class JsonParser {
+public class DataProvider {
 
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private String externalJsonFilePath = System.getProperty("user.dir") + "/misc/books.json";
   private List<Book> cacheBookList = new ArrayList<>();
   private Gson gson;
 
-  private static JsonParser instance;
+  private static DataProvider instance;
 
-  private JsonParser() {
+  private DataProvider() {
     gson = new Gson();
   }
 
-  public static JsonParser getInstance() {
+  public static DataProvider getInstance() {
     if(instance == null) {
-      instance = new JsonParser();
+      instance = new DataProvider();
     }
     return instance;
   }
