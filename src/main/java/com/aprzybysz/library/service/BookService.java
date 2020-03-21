@@ -37,9 +37,11 @@ public class BookService {
     List<Book> books = new ArrayList<>();
     findAll().forEach(it -> {
       var array = it.getCategories();
-      Arrays.sort(array);
-      if(Arrays.binarySearch(array, category) >= 0) {
-        books.add(it);
+      if(array != null) {
+        Arrays.sort(array);
+        if(Arrays.binarySearch(array, category) >= 0) {
+          books.add(it);
+        }
       }
     });
     return books;
