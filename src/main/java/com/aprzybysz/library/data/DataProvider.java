@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Component
 public class DataProvider {
 
-  static org.apache.logging.log4j.Logger logger = LogManager.getLogger(JsonParser.class);
+  static org.apache.logging.log4j.Logger logger = LogManager.getLogger(DataProvider.class);
 
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private String externalJsonFilePath = System.getProperty("user.dir") + "/misc/books.json";
