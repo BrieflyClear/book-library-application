@@ -191,6 +191,7 @@ public class DataProvider {
     RestTemplate template = new RestTemplateBuilder().build();
     String requestURL = GOOGLE_API_URI + "?key=" + GOOGLE_API_KEY + "&q=" + search;
     if(limit != null && limit > 0) {
+      //TODO throw error when limit <= 0
       requestURL = requestURL + "&maxResults=" + limit;
     }
     var string = template.getForObject(requestURL, String.class);

@@ -42,7 +42,11 @@ class RatingRestControllerTest {
 
   @Test
   public void givenUrl_ratingsShouldReturnNotEmptyList_thenCorrect() {
-    get(uri + "/api/rating").then().assertThat().body("results", hasSize((greaterThan(0))));
+    Map<String, Double> test = Map.of("Author Test", 3.87);
+    when(service.getAuthorsRatings()).thenReturn(test);
+
+    var array = get(uri + "/api/rating").then().assertThat().statusCode(HttpStatus.OK.value()).extract().as(AuthorRatingDTO[].class);
+    assertNotEquals(0, array.length);
   }
 
   @Test
