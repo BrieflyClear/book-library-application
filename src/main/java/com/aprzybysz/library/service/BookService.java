@@ -21,11 +21,11 @@ public class BookService {
   private IAverageRatingCalculator calculatorStrategy;
 
   public List<Book> findAll() {
-    return jsonParser.readFromExternalJsonFile();
+    return jsonParser.getAllBooks();
   }
 
   public Optional<Book> findByIsbn(String isbn) {
-    var list = findAll().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
+    var list = jsonParser.getAllBooks().stream().filter(it -> it.getIsbn().equals(isbn)).collect(Collectors.toList());
     if(list.size() == 1) {
       return Optional.ofNullable(list.get(0));
     } else {
@@ -35,7 +35,7 @@ public class BookService {
 
   public List<Book> findByCategory(String category) {
     List<Book> books = new ArrayList<>();
-    findAll().forEach(it -> {
+    jsonParser.getAllBooks().forEach(it -> {
       var array = it.getCategories();
       Arrays.sort(array);
       if(Arrays.binarySearch(array, category) >= 0) {
@@ -46,8 +46,8 @@ public class BookService {
   }
 
   public Map<String, Double> getAuthorsRatings() {
-    List<Book> books = findAll();
-    Set<String> authors = new HashSet<>(Collections.emptySet());
+    List<Book> books = jsonParser.getAllBooks();
+    Set<String> authors = new HashSet<>();
     Map<String, Double> ratings = new HashMap<>();
     books.removeIf(g -> g.getAuthors() == null);
     books.forEach(it -> authors.addAll(Arrays.asList(it.getAuthors())));
