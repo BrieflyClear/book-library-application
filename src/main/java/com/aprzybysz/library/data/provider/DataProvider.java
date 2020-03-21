@@ -187,11 +187,14 @@ public class DataProvider {
     }
   }
 
-  public List<Book> getBooksFromGoogle(String search, Integer limit) {
+  public List<Book> getBooksFromGoogle(String search, Integer startingIndex, Integer limit) {
     RestTemplate template = new RestTemplateBuilder().build();
     String requestURL = GOOGLE_API_URI + "?key=" + GOOGLE_API_KEY + "&q=" + search;
     if(limit != null && limit > 0) {
       requestURL = requestURL + "&maxResults=" + limit;
+    }
+    if(startingIndex != null && startingIndex > 0) {
+      requestURL = requestURL + "&startingIndex=" + startingIndex;
     }
     var string = template.getForObject(requestURL, String.class);
     var json = gson.fromJson(string, JsonObject.class);
