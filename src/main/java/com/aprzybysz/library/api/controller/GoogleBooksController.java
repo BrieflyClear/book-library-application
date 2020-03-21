@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/google")
+@RequestMapping("/api/google")
 @AllArgsConstructor
 public class GoogleBooksController {
 
