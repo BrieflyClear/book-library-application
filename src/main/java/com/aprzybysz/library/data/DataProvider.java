@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class DataProvider {
+
+  static org.apache.logging.log4j.Logger logger = LogManager.getLogger(JsonParser.class);
 
   public static final String JSON_FILE_REGEX = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.json";
   private String externalJsonFilePath = System.getProperty("user.dir") + "/misc/books.json";
@@ -69,16 +72,36 @@ public class DataProvider {
     List<Book> books = new ArrayList<>();
     try(Reader reader = new FileReader(externalJsonFilePath)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
-
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
       jsonItemsArray.forEach(it -> books.add(extractBookFromJsonBookElement(it)));
     } catch(IOException e) {
       e.printStackTrace();
-      // TODO add error page and log
+      logger.error(e.getMessage());
+      // TODO add error page
     }
     return books;
   }
+/*
+  public List<Book> parseJsonFile(String jsonBooks) {
+    List<Book> books = new ArrayList<>();
+    JsonReader reader = new JsonReader(new StringReader(jsonBooks));
+    reader.setLenient(true);
+    var jp = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    JsonObject root = jp.fromJson(jsonBooks, JsonObject.class);
+    //var root = (JsonObject) rootObject;
+    //JsonPrimitive primitive = new JsonPrimitive(jsonBooks);
+    //var root = primitive.getAsJsonObject();
 
+    if(root.isJsonArray()) {
+      root.getAsJsonArray().forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else if(root.getAsJsonObject().has("items")) {
+      root.getAsJsonObject().getAsJsonArray("items").forEach(it -> books.add(extractBookFromJsonBookElement(it)));
+    } else {
+      books.add(extractBookFromJsonBookElement(root));
+    }
+    return books;
+  }
+*/
   private Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
     String id = object.getAsJsonObject().get("id").getAsString();
     JsonObject volumeInfo = object.getAsJsonObject().get("volumeInfo").getAsJsonObject();
