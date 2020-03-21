@@ -22,6 +22,9 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Maven Surefire Plugin - to generate tests' reports in "/target/surefire-reports" 
   
 **+Add description**
+
+## Code Quality
+Built-in IDE plugin `Sonarlint` to check quality issues.
   
 ## Design Patterns:
   - **Builder** - the `Book` class contains multiple fields. It is better for readability to not initialize them all in the constructor. Also we want the Book object to be immutable, so it is sure the client will get unchanged data. Also `BookDTO` and `AuthorRatingDTO` classes
