@@ -40,7 +40,7 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
  
  To provide any external JSON datasource: `java -jar target/library-1.0.0.jar -Dspring-boot.run.arguments= {absolute file path}`
  
- The default JSON datasource is provided. It is "/misc/books.json". There is no need to include it when running commands.
+ The default JSON datasource is provided. It is "/misc/books.json". There is no need to include it when running commands. When multiple arguments are provided, only the last one is set as the JSON source.
 ### Testing
  To run the test, run the following command: `mvn test`
  
