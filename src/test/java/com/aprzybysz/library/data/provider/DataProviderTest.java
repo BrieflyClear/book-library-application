@@ -1,5 +1,6 @@
-package com.aprzybysz.library.data;
+package com.aprzybysz.library.data.provider;
 
+import com.aprzybysz.library.data.provider.DataProvider;
 import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
