@@ -1,0 +1,9 @@
+com.aprzybysz.library
+com.aprzybysz.library.api.controller
+com.aprzybysz.library.api.dto
+com.aprzybysz.library.api.exceptions
+com.aprzybysz.library.api.mapper
+com.aprzybysz.library.data.model
+com.aprzybysz.library.data.provider
+com.aprzybysz.library.data.util
+com.aprzybysz.library.service
