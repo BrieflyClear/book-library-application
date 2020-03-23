@@ -4,8 +4,6 @@ import com.aprzybysz.library.api.dto.BookDTO;
 import com.aprzybysz.library.api.exceptions.BookNotFoundException;
 import com.aprzybysz.library.api.mapper.BookMapper;
 import com.aprzybysz.library.service.BookService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +14,16 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
-@AllArgsConstructor
 public class BookRestController {
 
-  @Autowired
   private BookService service;
 
-  @Autowired
   private BookMapper mapper;
+
+  public BookRestController(BookService service, BookMapper mapper) {
+    this.service = service;
+    this.mapper = mapper;
+  }
 
   @GetMapping
   public List<BookDTO> getAll(){

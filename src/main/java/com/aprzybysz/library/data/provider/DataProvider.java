@@ -111,7 +111,7 @@ public class DataProvider {
     String language = getValueFromJsonObject("language", volumeInfo, String.class);
     String previewLink = getValueFromJsonObject("previewLink", volumeInfo, String.class);
     Double averageRating = getValueFromJsonObject("averageRating", volumeInfo, Double.class);
-    Integer ratingCount = getValueFromJsonObject("ratingCount", volumeInfo, Integer.class);
+    Integer ratingCount = getValueFromJsonObject("ratingsCount", volumeInfo, Integer.class);
     ArrayList<String> authors = new ArrayList<>();
     if(volumeInfo.has("authors")) {
       volumeInfo.get("authors").getAsJsonArray().forEach(g -> authors.add(g.getAsString()));
