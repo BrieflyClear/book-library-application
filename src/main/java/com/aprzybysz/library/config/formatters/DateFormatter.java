@@ -25,6 +25,6 @@ public class DateFormatter implements Formatter<Long> {
   }
 
   public String print(final Long val, final Locale locale) {
-    return LocalDate.from(Instant.ofEpochMilli(val)).toString();
+    return LocalDate.ofInstant(Instant.ofEpochMilli(val), ZoneId.systemDefault()).toString();
   }
 }

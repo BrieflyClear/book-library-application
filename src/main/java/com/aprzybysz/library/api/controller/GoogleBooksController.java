@@ -3,7 +3,6 @@ package com.aprzybysz.library.api.controller;
 import com.aprzybysz.library.api.dto.BookDTO;
 import com.aprzybysz.library.api.mapper.BookMapper;
 import com.aprzybysz.library.service.GoogleBooksService;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/google")
-@CrossOrigin
 public class GoogleBooksController {
 
   private GoogleBooksService service;

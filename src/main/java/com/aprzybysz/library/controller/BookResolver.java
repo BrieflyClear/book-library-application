@@ -25,36 +25,9 @@ public class BookResolver implements HandlerMethodArgumentResolver {
       WebDataBinderFactory webDataBinderFactory) throws Exception {
 
       if(Book.class.equals(methodParameter.getParameterType())) {
-        ServletWebRequest servletWebRequest = (ServletWebRequest) nativeWebRequest;
-        HttpServletRequest request = servletWebRequest.getRequest();
-
-        String isbn = request.getParameter("isbn");
-        String title = request.getParameter("title");
-        String subtitle = request.getParameter("subtitle");
-        String publisher = request.getParameter("publisher");
-        Long publishedDateInUnix = Long.valueOf(request.getParameter("publishedDate"));
-        String description = request.getParameter("description");
-        Integer pageCount = Integer.parseInt(request.getParameter("pageCount"));
-        String thumbnailUrl = request.getParameter("thumbnailUrl");
-        String language = request.getParameter("language");
-        Double averageRating = Double.valueOf(request.getParameter("averageRating"));
-        Integer ratingCount = Integer.parseInt(request.getParameter("ratingCount"));
-        String previewLink = request.getParameter("previewLink");
         return new Book.BookBuilder()
-            .isbn(isbn)
-            .title(title)
-            .subtitle(subtitle)
-            .publisher(publisher)
-            .publishedDate(publishedDateInUnix)
-            .description(description)
-            .pageCount(pageCount)
-            .thumbnailUrl(thumbnailUrl)
-            .language(language)
-            .averageRating(averageRating)
-            .ratingsCount(ratingCount)
-            .previewLink(previewLink)
-            .authors(null)
-            .categories(null)
+            .isbn("null")
+            .title("null")
             .create();
       }
       return null;
