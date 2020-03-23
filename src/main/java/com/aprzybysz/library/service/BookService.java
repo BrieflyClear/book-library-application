@@ -1,24 +1,24 @@
 package com.aprzybysz.library.service;
 
-import com.aprzybysz.library.data.util.IAverageRatingCalculator;
-import com.aprzybysz.library.data.provider.DataProvider;
 import com.aprzybysz.library.data.model.Book;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.aprzybysz.library.data.provider.DataProvider;
+import com.aprzybysz.library.data.util.IAverageRatingCalculator;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class BookService {
 
-  @Autowired
   private DataProvider dataProvider;
 
-  @Autowired
   private IAverageRatingCalculator calculatorStrategy;
+
+  public BookService(DataProvider dataProvider, IAverageRatingCalculator calculator) {
+    this.dataProvider = dataProvider;
+    this.calculatorStrategy = calculator;
+  }
 
   public List<Book> findAll() {
     return dataProvider.getAllBooks();
