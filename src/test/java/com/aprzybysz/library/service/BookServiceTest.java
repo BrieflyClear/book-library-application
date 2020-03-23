@@ -1,4 +1,4 @@
-package com.aprzybysz.library.api.service;
+package com.aprzybysz.library.service;
 
 import com.aprzybysz.library.data.model.Book;
 import com.aprzybysz.library.data.provider.DataProvider;
@@ -35,8 +35,6 @@ class BookServiceTest {
         .categories(new String[]{"Programming"}).authors(new String[]{"Andre"}).create());
     list.add(new Book.BookBuilder().isbn("9781592432175").title("Mockito guide")
         .categories(new String[]{"Computers"}).authors(new String[]{"Andy"}).create());
-    /*list.add(new Book.BookBuilder().isbn("9781592432176").title("Java start")
-        .categories(new String[]{"Programming"}).create());*/
     when(dataProvider.getAllBooks()).thenReturn(list);
   }
 
