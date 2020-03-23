@@ -86,7 +86,7 @@ public class DataProvider {
     return books;
   }
 
-  private Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
+  public Book extractBookFromJsonBookElement(@NotNull JsonElement object) {
     String id = object.getAsJsonObject().get("id").getAsString();
     JsonObject volumeInfo = object.getAsJsonObject().get("volumeInfo").getAsJsonObject();
     String title = getValueFromJsonObject("title", volumeInfo, String.class);
@@ -191,7 +191,6 @@ public class DataProvider {
     RestTemplate template = new RestTemplateBuilder().build();
     String requestURL = GOOGLE_API_URI + "?key=" + GOOGLE_API_KEY + "&q=" + search;
     if(limit != null && limit > 0) {
-      //TODO throw error when limit <= 0
       requestURL = requestURL + "&maxResults=" + limit;
     }
     if(startingIndex != null && startingIndex > 0) {

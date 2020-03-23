@@ -1,5 +1,6 @@
 package com.aprzybysz.library.api.controller;
 
+import com.aprzybysz.library.api.dto.BookDTO;
 import com.aprzybysz.library.data.model.Book;
 import com.aprzybysz.library.service.GoogleBooksService;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -57,18 +59,20 @@ class GoogleBooksControllerTest {
     when(service.findFromGoogle("C++")).thenReturn(List.of(list.get(3)));
     when(service.findFromGoogle("9781592432176")).thenReturn(List.of(list.get(5)));
 
-    get(uri + "/api/google/search/9781592432176").then().assertThat()
-        .statusCode(HttpStatus.OK.value()).body("isbn", equalTo(list.get(5).getIsbn()))
-        .body("title", equalTo(list.get(5).getTitle()));
+    var book = get(uri + "/api/google/search/9781592432176").then().assertThat()
+        .statusCode(HttpStatus.OK.value()).extract().as(BookDTO[].class)[0];
+    assertEquals(list.get(5).getIsbn(), book.getIsbn());
+    assertEquals(list.get(5).getTitle(), book.getTitle());
 
-    get(uri + "/api/google/search/C++").then().assertThat()
-        .statusCode(HttpStatus.OK.value()).body("isbn", equalTo(list.get(3).getIsbn()))
-        .body("title", equalTo(list.get(3).getTitle()));
+    var book2 = get(uri + "/api/google/search/C++").then().assertThat()
+        .statusCode(HttpStatus.OK.value()).extract().as(BookDTO[].class)[0];
+    assertEquals(list.get(3).getIsbn(), book2.getIsbn());
+    assertEquals(list.get(3).getTitle(), book2.getTitle());
   }
 
   @Test
-  public void givenUrl_shouldReturn404OnWrongLimitValue_thenCorrect() {
-    get(uri + "/api/google/search/C++/limit/0").then().assertThat().statusCode(404);
-    get(uri + "/api/google/search/C++/limit/-10").then().assertThat().statusCode(404);
+  public void givenUrl_shouldReturnDefaultOnWrongLimitValue_thenCorrect() {
+    get(uri + "/api/google/search/C++/limit/0").then().assertThat().statusCode(HttpStatus.OK.value());
+    get(uri + "/api/google/search/C++/limit/-10").then().assertThat().statusCode(HttpStatus.OK.value());
   }
 }
