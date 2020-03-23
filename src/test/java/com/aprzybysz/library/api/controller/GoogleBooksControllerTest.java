@@ -54,8 +54,8 @@ class GoogleBooksControllerTest {
 
   @Test
   public void givenUrl_whenSuccessOnGetsResponseAndJsonHasRequiredParams_thenCorrect() {
-    when(service.findFromGoogle("C++", null)).thenReturn(List.of(list.get(3)));
-    when(service.findFromGoogle("9781592432176", null)).thenReturn(List.of(list.get(5)));
+    when(service.findFromGoogle("C++")).thenReturn(List.of(list.get(3)));
+    when(service.findFromGoogle("9781592432176")).thenReturn(List.of(list.get(5)));
 
     get(uri + "/api/google/search/9781592432176").then().assertThat()
         .statusCode(HttpStatus.OK.value()).body("isbn", equalTo(list.get(5).getIsbn()))
