@@ -1,20 +1,28 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(to top right, red, blue);
+  background: #F7971E;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFD200, #F7971E);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFD200, #F7971E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .grid-container {
   display: grid;
-  grid-column-gap: 50px;
-  grid-row-gap: 100px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
   grid-template-columns: auto auto auto auto;
+  margin: 30px;
 }
 
 .grid-item {
-  border: 1px solid rgba(0, 0, 0, 0);
-  padding: 20px;
-  font-size: 30px;
-  text-align: center;
+  font-family: "Arial";
+  text-align: left;
+  font-size: 14px;
 }
 
+.grid-item-title {
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}

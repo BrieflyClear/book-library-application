@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title th:text="#{title}">Library</title>
@@ -17,15 +19,34 @@
            onclick="window.location='/api';"/>
 
 </div>
-<div class="grid-container" th:unless="${#lists.isEmpty(allBooks)}">
 
-    <div class="grid-item" th:each="sb : ${allBooks}">
-        <img src="img/noThumbnail.png" th:src="${sb.thumbnailUrl}" alt=""/>
-        <p th:text="${sb.title}">Book Title</p>
-        <p th:text="${sb.averageRating}">0.00</p>
-        <p th:text="${{sb.publishedDate}}">13/01/2019</p>
-        <p th:text="${sb.publisher}">Publisher</p>
-        <p th:text="${sb.isbn}">number</p>
+<div class="select-list-category" th:unless="${#lists.isEmpty(allCategories)}">
+    <select id="category.select">
+        <option th:each="i : ${allCategories}" th:value="${i}" th:text="${i}"
+                th:selected="i==${category}"></option>
+    </select>
+</div>
+
+<div class="grid-container" th:unless="${#lists.isEmpty(books)}">
+
+    <div class="grid-item" th:each="sb : ${books}">
+
+        <div class="grid-item-img">
+            <img src="img/noThumbnail.png" th:src="${sb.thumbnailUrl}" alt=""/>
+        </div>
+        <div class="grid-item-title">
+            <p th:text="${sb.title}">Book Title</p>
+        </div>
+        <div class="grid-item-rating">
+            Rating: <p th:text="${sb.averageRating}">0.00</p>
+        </div>
+        <div class="grid-item-date">
+            Publication date: <p th:text="${{sb.publishedDate}}">13/01/2019</p>
+        </div>
+        <div class="grid-item-publisher">
+            Publisher: <p th:text="${sb.publisher}">Publisher</p>
+        </div>
+
     </div>
 
 </div>
