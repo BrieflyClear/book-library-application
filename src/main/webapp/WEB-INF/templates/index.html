@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
- <h3>Test app</h3>
-</body>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="upperBar">
+
+    <h1>Book Library Dashboard</h1>
+
+    <input type="submit" value="Go to API"
+           onclick="window.location='/api';" />
+
+</div>
+
+<div class="bookList" th:unless="${#lists.isEmpty(allBooks)}">
+
+    <h2 th:text="#{title.list}">List of Books</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{book.thumbnailUrl}">thumbnail</th>
+            <th th:text="#{book.title}">Title</th>
+            <th th:text="#{book.averageRating}">Rating</th>
+            <th th:text="#{book.publishedDate}">Publication date</th>
+            <th th:text="#{book.publisher}">Publisher</th>
+            <th th:text="#{book.isbn}">ISBN</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sb : ${allBooks}">
+            <th><img src="img/noThumbnail.png" th:src="${sb.thumbnailUrl}" alt=""/></th>
+            <td th:text="${sb.title}">Book Title</td>
+            <td th:text="${sb.averageRating}">0.00</td>
+            <td th:text="${{sb.publishedDate}}">13/01/2019</td>
+            <td th:text="${sb.publisher}">Publisher</td>
+            <td th:text="${sb.isbn}">number</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </html>

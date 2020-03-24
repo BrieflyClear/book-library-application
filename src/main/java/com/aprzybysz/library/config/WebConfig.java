@@ -34,8 +34,7 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
     super();
   }
 
-  public void setApplicationContext(final ApplicationContext applicationContext)
-      throws BeansException {
+  public void setApplicationContext(final ApplicationContext applicationContext) {
     this.applicationContext = applicationContext;
   }
 

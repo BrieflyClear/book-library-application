@@ -25,8 +25,8 @@ public class WebController {
     return "index";
   }
 
-  @GetMapping({"/books"})
-  public String showDashboard(@BookObject final Book book) {
-    return "booklisting";
+  @GetMapping({"/api"})
+  public String showDashboard() {
+    return "api_instruction";
   }
 }
