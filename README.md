@@ -39,6 +39,7 @@ Built-in IDE plugin `Sonarlint` to check quality issues.
   - **Static factory method** - for the `DataProvider` singleton class
 
 ## Instructions
+You can find separate instructions file under "/instructions" directory.
 ### Building 
  To build the project use following command: `mvn clean package`
 ### Running 
