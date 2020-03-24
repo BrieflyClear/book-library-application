@@ -36,7 +36,7 @@ public class WebController {
     return categories;
   }
 
-  @GetMapping({"/"})
+  @GetMapping({"/", "/books"})
   public String showWelcome(@RequestParam(required = false) String category, Model model) {
     if(category == null) {
       category = "All books";
@@ -60,5 +60,11 @@ public class WebController {
   @GetMapping("/favicon.ico")
   @ResponseBody
   void returnNoFavicon() {
+  }
+
+  @GetMapping("/book")
+  public String showBookDetails(@RequestParam("id") String isbn, Model model) {
+    model.addAttribute("book", service.findByIsbn(isbn).orElse(null));
+    return "book_details";
   }
 }

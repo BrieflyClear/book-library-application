@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.title}">Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style-book.css}">
+</head>
+<body>
+
+<div class="main-layout">
+    <div class="book-image">
+        <img src="images/noImage.png" th:src="${book.thumbnailUrl}">
+    </div>
+    <div class="item">
+        <p th:text="${book.title}">Book Title</p>
+    </div>
+
+    infoLink, authors, categories, isbn, pageCount, averageRating, ratingsCount,
+</div>
+
+</body>
+</html>
