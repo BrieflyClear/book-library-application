@@ -1,5 +1,6 @@
 # book-library-application
 A Spring web application providing basic data about books from Google Books API. The sysyem is backed by REST API providing serveral endpoint listed below.
+The home page of this project is a dashboard of the books and their categories.
 
 It is a project for the recruitment test in Cognifide (Poznań, Poland).
 
@@ -11,8 +12,6 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Lombok - to skip methods like Getters, Setters, Equals, etc.
   - MapStruct - to map raw POJO to DTO
   - Log4J - to log to external files
-  
-**+Add description**
 
 ## Testing:
   - JUnit 5.5.2
@@ -20,8 +19,6 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Rest Assured
   - Hamcrest
   - Maven Surefire Plugin - to generate tests' reports in "/target/surefire-reports" 
-  
-**+Add description**
 
 ## Code Quality
 Built-in IDE plugin `Sonarlint` to check quality issues.
@@ -47,6 +44,8 @@ Built-in IDE plugin `Sonarlint` to check quality issues.
 ### Testing
  To run the test, run the following command: `mvn test`
  
+ There are 24 tests.
+ 
 ### API Endpoints
   - /api
     - /books
@@ -58,6 +57,9 @@ Built-in IDE plugin `Sonarlint` to check quality issues.
       - /search/{value}/startIndex/{index}
       - /search/{value}/limit/{maxResults}
       - /search/{value}/startIndex/{index}/limit/{maxResults}
+      
+### Documentation
+The documentation of the API is provided via JavaDoc comments. The JavaDoc is also generated under the "/documentation" directory.
 
 ### Dashboard (fullstack taks)
-
+The home page of this project is the dashboard bonus task. It displays books by category selected from the drop down list or by the HTTP request param in the URI. The dashboard **only** uses data from the internal memory (provided Json files) and not directly from Google. 

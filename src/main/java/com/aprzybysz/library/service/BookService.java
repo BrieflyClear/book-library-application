@@ -36,12 +36,16 @@ public class BookService {
   public List<Book> findByCategory(String category) {
     List<Book> books = new ArrayList<>();
     dataProvider.getAllBooks().forEach(it -> {
-      var array = it.getCategories();
-      if(array != null) {
-        Arrays.sort(array);
-        if(Arrays.binarySearch(array, category) >= 0) {
-          books.add(it);
+      if(category != null) {
+        var array = it.getCategories();
+        if(array != null) {
+          Arrays.sort(array);
+          if(Arrays.binarySearch(array, category) >= 0) {
+            books.add(it);
+          }
         }
+      } else {
+        books.add(it);
       }
     });
     return books;
@@ -60,5 +64,16 @@ public class BookService {
       }
     });
     return ratings;
+  }
+
+  public List<String> getCategories() {
+    List<Book> books = dataProvider.getAllBooks();
+    Set<String> categories = new HashSet<>();
+    books.forEach(it -> {
+      if(it.getCategories() != null) {
+        categories.addAll(Arrays.asList(it.getCategories()));
+      }
+    });
+    return new ArrayList<>(categories);
   }
 }
