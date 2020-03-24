@@ -13,7 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.constraints.NotNull;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -74,7 +76,7 @@ public class DataProvider {
 
   private List<Book> readFromExternalJsonFile() {
     List<Book> books = new ArrayList<>();
-    try(Reader reader = new FileReader(externalJsonFilePath)) {
+    try(Reader reader = new FileReader(externalJsonFilePath, StandardCharsets.UTF_8)) {
       JsonObject root = gson.fromJson(reader, JsonObject.class);
       JsonArray jsonItemsArray = root.get("items").getAsJsonArray();
       jsonItemsArray.forEach(it -> books.add(extractBookFromJsonBookElement(it)));
