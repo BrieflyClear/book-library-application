@@ -63,6 +63,3 @@ The documentation of the API is provided via JavaDoc comments. The JavaDoc is al
 
 ### Dashboard (fullstack taks)
 The home page of this project is the dashboard bonus task. It displays books by category selected from the drop down list or by the HTTP request param in the URI. The dashboard **only** uses data from the internal memory (provided Json files) and not directly from Google. 
-
-### Known bugs:
-  - wrong encoding characters when parsing Json to String values. Example: title "深入浅出 Java" parsed to "ć·±ĺ…Ąćµ…ĺ‡ş Java".
