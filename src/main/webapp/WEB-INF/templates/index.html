@@ -11,10 +11,6 @@
 
 <body>
 
-<script>
-    console.log("[[${category}]]");
-</script>
-
 <div class="upperBar">
 
     <h1>Book Library Dashboard</h1>
@@ -25,7 +21,7 @@
 </div>
 
 <div class="select-list-category" th:unless="${#lists.isEmpty(allCategories)}">
-    <select id="category.select">
+    Select a category: <select id="category.select">
         <option th:each="i : ${allCategories}" th:value="${i}" th:text="${i}"
                 th:selected="${i}==${category}"></option>
     </select>

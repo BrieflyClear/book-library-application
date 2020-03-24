@@ -40,7 +40,6 @@ public class WebController {
     if(category == null) {
       category = "All books";
     }
-    category = category.replace("+", " ");
     if(category.equals("All books")) {
       model.addAttribute("books", populateBooks());
     } else if(category.equals("No category")) {
