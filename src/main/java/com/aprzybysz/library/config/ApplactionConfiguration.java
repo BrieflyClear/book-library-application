@@ -1,4 +1,4 @@
-package com.aprzybysz.library;
+package com.aprzybysz.library.config;
 
 import com.aprzybysz.library.data.util.AverageRatingCalculatorImpl;
 import com.aprzybysz.library.data.util.IAverageRatingCalculator;
