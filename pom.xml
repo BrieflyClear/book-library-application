@@ -11,7 +11,7 @@
     <groupId>com.aprzybysz</groupId>
     <artifactId>library</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Book Library Application</name>
     <description>Google Book Library App</description>
 
