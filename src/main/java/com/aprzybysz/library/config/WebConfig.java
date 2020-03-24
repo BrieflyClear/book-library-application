@@ -3,8 +3,6 @@ package com.aprzybysz.library.config;
 import com.aprzybysz.library.config.formatters.BookFormatter;
 import com.aprzybysz.library.config.formatters.DateFormatter;
 import com.aprzybysz.library.controller.BookResolver;
-import com.aprzybysz.library.data.model.Book;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -46,9 +44,9 @@ public class WebConfig implements ApplicationContextAware, WebMvcConfigurer {
   @Override
   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
     WebMvcConfigurer.super.addResourceHandlers(registry);
-    registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-    registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-    registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+    registry.addResourceHandler("/images/**").addResourceLocations("classpath:images/");
+    registry.addResourceHandler("/css/**").addResourceLocations("classpath:static/css/");
+    registry.addResourceHandler("/js/**").addResourceLocations("classpath:static/js/");
   }
 
   @Bean

@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to top right, red, blue);
+}
+
+.grid-container {
+  display: grid;
+  grid-column-gap: 50px;
+  grid-row-gap: 100px;
+  grid-template-columns: auto auto auto auto;
+}
+
+.grid-item {
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
