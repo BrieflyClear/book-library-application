@@ -70,3 +70,6 @@ The documentation of the API is provided via JavaDoc comments. The JavaDoc is al
 
 ### Dashboard (fullstack taks)
 The home page of this project is the dashboard bonus task. It displays books by category selected from the drop down list or by the HTTP request param in the URI. The dashboard **only** uses data from the internal memory (provided Json files) and not directly from Google. 
+
+### Known bugs:
+    - selecting category "C+" doesn't work because of not encoding the '+' character. 

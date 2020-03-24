@@ -5,5 +5,5 @@ function dropDownListChanged() {
 }
 
 function showBookDetails(isbn) {
-    window.location.href = "/book?id=" + isbn
+    window.location.href = "/book?id=" + isbn;
 }
