@@ -8,17 +8,23 @@ It is a project for the recruitment test in Cognifide (Poznań, Poland).
   - Java 13
   - Maven 3.8.1
   - Spring Boot 2.2.5
+  - Spring MVC 5.2.4 - to control requests from views
   - Gson 2.8.6
   - Lombok - to skip methods like Getters, Setters, Equals, etc.
   - MapStruct - to map raw POJO to DTO
   - Log4J - to log to external files
+  - Thymeleaf 3.0.11 - to build page templates
+  
+I used the Spring Framework because it is the most popular web framework for Java and it is the framework I know the most.
 
 ## Testing:
   - JUnit 5.5.2
   - Mockito 1.10.19
   - Rest Assured
   - Hamcrest
-  - Maven Surefire Plugin - to generate tests' reports in "/target/surefire-reports" 
+  - Maven Surefire Plugin - to generate tests' reports in "/target/surefire-reports"
+  
+The JUnit framework is the biggest framework for Unit Tests in Java and I have never used any other. 
 
 ## Code Quality
 Built-in IDE plugin `Sonarlint` to check quality issues.

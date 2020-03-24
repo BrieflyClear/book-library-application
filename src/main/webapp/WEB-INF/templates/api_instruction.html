@@ -5,39 +5,53 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="#{title}">Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h2 th:text="#{title.api}">API</h2>
+<div class="api-instructions-div">
 
-<div class="api-endpoints">
+    <h2 th:text="#{title.api}">API</h2>
 
     <p th:text="#{api.endpoints}">Endpoints:</p>
 
     <p>To reach the endpoints go to the endpoint <b>/api</b> followed by the endpoints listed below:</p>
-    <ul>
-        <li><strong>/books</strong></li>
+
+    <div class="api-endpoints">
+
         <ul>
-            <li><strong>/isbn/{isbn}</strong><br>
-                returns the book by given ISBN</li>
-            <li><strong>/category/{category}</strong><br>
-                returns a list of books by given category</li>
+            <li><strong>/books</strong></li>
+            <ul>
+                <li><strong>/isbn/{isbn}</strong><br>
+                    returns the book by given ISBN
+                </li>
+                <li><strong>/category/{category}</strong><br>
+                    returns a list of books by given category
+                </li>
+            </ul>
+            <li><strong>/ratings</strong><br>
+                returns a list of authors with their average ratings
+            </li>
+            <li><strong>/google</strong><br>
+                uses Google Books API. The return list is always limited to 10 records
+            </li>
+            <ul>
+                <li><strong>/search/{value}</strong><br>
+                    returns books by the search value
+                </li>
+                <li><strong>/search/{value}/limit/{maxResults}</strong><br>
+                    limits the above to the given amount (max 40)
+                </li>
+                <li><strong>/search/{value}/startIndex/{index}</strong><br>
+                    returns books by the search value. The startIndex determines the first index of the list
+                </li>
+                <li><strong>/search/{value}/startIndex/{index}/limit/{maxResults}</strong><br>
+                    limits the returned list to the given amount (max 40) with the first index at startIndex
+                </li>
+            </ul>
         </ul>
-        <li><strong>/ratings</strong><br>
-            returns a list of authors with their average ratings</li>
-        <li><strong>/google</strong><br>
-            uses Google Books API. The return list is always limited to 10 records</li>
-        <ul>
-            <li><strong>/search/{value}</strong><br>
-                returns books by the search value</li>
-            <li><strong>/search/{value}/limit/{maxResults}</strong><br>
-                limits the above to the given amount (max 40)</li>
-            <li><strong>/search/{value}/startIndex/{index}</strong><br>
-                returns books by the search value. The startIndex determines the first index of the list</li>
-            <li><strong>/search/{value}/startIndex/{index}/limit/{maxResults}</strong><br>
-                limits the returned list to the given amount (max 40) with the first index at startIndex</li>
-        </ul>
-    </ul>
+
+    </div>
 
 </div>
 

@@ -14,3 +14,6 @@ Running
 
 Testing
 To run all the tests, run the following command: mvn test
+
+Dashboard (fullstack task)
+The dashboard is built using Thymeleaf and JavaScript. It does not require any additional commands to run.

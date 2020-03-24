@@ -38,13 +38,16 @@
             <p th:text="${sb.title}">Book Title</p>
         </div>
         <div class="grid-item-rating">
-            Rating: <p th:text="${sb.averageRating}">0.00</p>
+            Rating: <span class="book-div-value" th:if="${sb.averageRating != null}" th:text="${sb.averageRating}">0.00</span>
+            <span class="book-div-value" th:unless="${sb.averageRating != null}">0.00</span>
         </div>
         <div class="grid-item-date">
-            Publication date: <p th:text="${{sb.publishedDate}}">13/01/2019</p>
+            Publication date: <span class="book-div-value" th:if="${sb.publishedDate != null}" th:text="${{sb.publishedDate}}">13/01/2019</span>
+            <span class="book-div-value" th:unless="${sb.publishedDate != null}">unknown</span>
         </div>
         <div class="grid-item-publisher">
-            Publisher: <p th:text="${sb.publisher}">Publisher</p>
+            Publisher: <span class="book-div-value" th:if="${sb.publisher != null}" th:text="${sb.publisher}">Publisher</span>
+            <span class="book-div-value" th:unless="${sb.publisher != null}">unknown</span>
         </div>
 
     </div>
