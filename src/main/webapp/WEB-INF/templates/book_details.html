@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.title}">Library</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style-book.css}">
+</head>
+<body>
+
+<div class="main-layout">
+    <div class="item">
+        <div class="book-image-div">
+            <img class="book-image" src="images/noImage.png" th:src="${book.thumbnailUrl}">
+        </div>
+    </div>
+    <div class="item">
+        <span th:text="${book.title}">Book Title</span>
+        <br>
+        Authors: <span th:if="${book.authors != null}" th:each="i : ${book.authors}" th:text="${i}">Author</span>
+        <span th:unless="${book.authors != null}">unknown</span>
+        <br>
+        ISBN: <span th:text="${book.isbn}">ISBN</span>
+        <br>
+        Pages: <span th:if="${book.pageCount != null}" th:text="${book.pageCount}">Page count</span>
+        <span th:unless="${book.pageCount != null}">unknown</span>
+        <br>
+        Rating: <span th:if="${book.averageRating != null}" th:text="${book.averageRating}">Rating</span>
+        <span th:unless="${book.averageRating != null}">unknown</span>
+        <br>
+        Rated <span th:if="${book.ratingsCount != null}" th:text="${book.ratingsCount}">Ratings count</span>
+        <span th:unless="${book.ratingsCount != null}">unknown</span> times
+        <br>
+        Categores: <span th:if="${book.categories != null}" th:each="i : ${book.categories}" th:text="${i}">Category</span>
+        <span th:unless="${book.categories != null}">unknown</span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -21,38 +21,46 @@
 </div>
 
 <div class="select-list-category" th:unless="${#lists.isEmpty(allCategories)}">
-    Select a category: <select id="category.select">
-        <option th:each="i : ${allCategories}" th:value="${i}" th:text="${i}"
-                th:selected="${i}==${category}"></option>
-    </select>
+    Select category: <select id="category.select">
+    <option th:each="i : ${allCategories}" th:value="${i}" th:text="${i}"
+            th:selected="${i}==${category}"></option>
+</select>
 </div>
 
 <div class="grid-container" th:unless="${#lists.isEmpty(books)}">
 
     <div class="grid-item" th:each="sb : ${books}">
-
-        <div class="grid-item-img">
-            <img src="img/noThumbnail.png" th:src="${sb.thumbnailUrl}" alt=""/>
+        <div class="clickable-item"
+             th:isbnStr="${sb.isbn}" th:onclick="javascript:showBookDetails(this.getAttribute('isbnStr'));">
+            <div class="grid-item-img">
+                <img src="images/noThumbnail.png" th:src="${sb.thumbnailUrl}" alt=""/>
+            </div>
+            <div class="grid-item-title">
+                <p th:text="${sb.title}">Book Title</p>
+            </div>
+            <div class="grid-item-rating">
+                Rating: <span class="book-div-value" th:if="${sb.averageRating != null}" th:text="${sb.averageRating}">0.00</span>
+                <span class="book-div-value" th:unless="${sb.averageRating != null}">0.00</span>
+            </div>
+            <div class="grid-item-date">
+                Publication date: <span class="book-div-value" th:if="${sb.publishedDate != null}"
+                                        th:text="${{sb.publishedDate}}">13/01/2019</span>
+                <span class="book-div-value" th:unless="${sb.publishedDate != null}">unknown</span>
+            </div>
+            <div class="grid-item-publisher">
+                Publisher: <span class="book-div-value" th:if="${sb.publisher != null}" th:text="${sb.publisher}">Publisher</span>
+                <span class="book-div-value" th:unless="${sb.publisher != null}">unknown</span>
+            </div>
         </div>
-        <div class="grid-item-title">
-            <p th:text="${sb.title}">Book Title</p>
-        </div>
-        <div class="grid-item-rating">
-            Rating: <span class="book-div-value" th:if="${sb.averageRating != null}" th:text="${sb.averageRating}">0.00</span>
-            <span class="book-div-value" th:unless="${sb.averageRating != null}">0.00</span>
-        </div>
-        <div class="grid-item-date">
-            Publication date: <span class="book-div-value" th:if="${sb.publishedDate != null}" th:text="${{sb.publishedDate}}">13/01/2019</span>
-            <span class="book-div-value" th:unless="${sb.publishedDate != null}">unknown</span>
-        </div>
-        <div class="grid-item-publisher">
-            Publisher: <span class="book-div-value" th:if="${sb.publisher != null}" th:text="${sb.publisher}">Publisher</span>
-            <span class="book-div-value" th:unless="${sb.publisher != null}">unknown</span>
-        </div>
-
     </div>
 
 </div>
+
+<script>
+    var dropDownList = document.getElementById("category.select");
+    dropDownList.addEventListener("change", () => dropDownListChanged());
+
+</script>
 
 <script th:src="@{/js/script.js}"></script>
 </body>
